@@ -19,13 +19,10 @@ function renderDots() {
 }
 
 function updateSlideView() {
-    const slides = document.querySelectorAll(".slide");
-    slides.forEach(slide => {
-        slide.classList.remove("active");
-        if (parseInt(slide.getAttribute("data-slide")) === currentSlide) {
-            slide.classList.add("active");
-        }
-    });
+    const iframe = document.getElementById("pdf-slide-iframe");
+    if (iframe) {
+        iframe.src = `GE011_W4.2_1690900228.pdf#page=${currentSlide}&toolbar=0&navpanes=0&scrollbar=0`;
+    }
     
     const dots = document.querySelectorAll(".slide-dot");
     dots.forEach((dot, index) => {
