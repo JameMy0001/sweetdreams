@@ -1,69 +1,3 @@
-let currentSlide = 1;
-const totalSlides = 5;
-
-function initSlides() {
-    renderDots();
-    updateSlideView();
-}
-
-function renderDots() {
-    const dotsContainer = document.getElementById("slide-dots");
-    if (!dotsContainer) return;
-    dotsContainer.innerHTML = "";
-    for (let i = 1; i <= totalSlides; i++) {
-        const dot = document.createElement("div");
-        dot.className = `slide-dot ${i === currentSlide ? "active" : ""}`;
-        dot.setAttribute("onclick", `goToSlide(${i})`);
-        dotsContainer.appendChild(dot);
-    }
-}
-
-function updateSlideView() {
-    const slides = document.querySelectorAll(".slide");
-    slides.forEach(slide => {
-        slide.classList.remove("active");
-        if (parseInt(slide.getAttribute("data-slide")) === currentSlide) {
-            slide.classList.add("active");
-        }
-    });
-    
-    const dots = document.querySelectorAll(".slide-dot");
-    dots.forEach((dot, index) => {
-        dot.classList.remove("active");
-        if (index + 1 === currentSlide) {
-            dot.classList.add("active");
-        }
-    });
-}
-
-function changeSlide(direction) {
-    currentSlide += direction;
-    if (currentSlide < 1) currentSlide = 1;
-    if (currentSlide > totalSlides) currentSlide = totalSlides;
-    updateSlideView();
-}
-
-function goToSlide(slideNum) {
-    currentSlide = slideNum;
-    updateSlideView();
-}
-
-function switchMode(mode) {
-    document.getElementById("section-slides").classList.remove("active");
-    document.getElementById("section-simulator").classList.remove("active");
-    document.getElementById("btn-slides").classList.remove("active");
-    document.getElementById("btn-simulator").classList.remove("active");
-
-    if (mode === 'slides') {
-        document.getElementById("section-slides").classList.add("active");
-        document.getElementById("btn-slides").classList.add("active");
-    } else {
-        document.getElementById("section-simulator").classList.add("active");
-        document.getElementById("btn-simulator").classList.add("active");
-        runSleepPlannerAlgorithm();
-    }
-}
-
 let customTasks = [
     { id: 1, name: "ทบทวนข้อสอบวิชาหลัก", priority: "A", hours: 2 },
     { id: 2, name: "เคลียร์การบ้านกลุ่ม GE011", priority: "B", hours: 2.5 },
@@ -346,6 +280,5 @@ function renderTasksList(routed, deferred) {
 }
 
 window.onload = function() {
-    initSlides();
     runSleepPlannerAlgorithm();
 };
