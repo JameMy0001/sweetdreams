@@ -19,10 +19,13 @@ function renderDots() {
 }
 
 function updateSlideView() {
-    const iframe = document.getElementById("pdf-slide-iframe");
-    if (iframe) {
-        iframe.src = `GE011_W4.2_1690900228.pdf#page=${currentSlide}&toolbar=0&navpanes=0&scrollbar=0`;
-    }
+    const slides = document.querySelectorAll(".slide");
+    slides.forEach(slide => {
+        slide.classList.remove("active");
+        if (parseInt(slide.getAttribute("data-slide")) === currentSlide) {
+            slide.classList.add("active");
+        }
+    });
     
     const dots = document.querySelectorAll(".slide-dot");
     dots.forEach((dot, index) => {
@@ -255,7 +258,7 @@ function runSleepPlannerAlgorithm() {
         { hours: -10, title: "งดคาเฟอีนทุกชนิด (No Caffeine)", desc: "ฤทธิ์คาเฟอีนสลายตัวเฉลี่ยใช้เวลา 10 ชม. เพื่อป้องกันการรบกวนคลื่นสมองหลับลึก", status: doneCaffeine, icon: "fa-mug-hot" },
         { hours: -3, title: "งดอาหารมื้อหนัก & แอลกอฮอล์ (No Heavy Food)", desc: "กระเพาะใช้เวลาย่อยอาหารมื้อดึก 3 ชม. ป้องกันอาการกรดไหลย้อน", status: doneFood, icon: "fa-utensils" },
         { hours: -2, title: "ยุติเรื่องเรียน & งานสอบที่เครียด (No Study)", desc: "หยุดการเรียนเครียดก่อนนอน 2 ชม. เพื่อระดับฮอร์โมน Cortisol ลดระดับลง", status: !doneStudy, icon: "fa-book-open" },
-        { hours: -1, title: "ปิดสมาร์ทโฟน/หน้าจอยุติแสงสีฟ้า (No Screens)", desc: "แสงสีฟ้า (Blue Light) ยับยั้งเมลาโทนิน แนะนำให้จดบันทึกลงบนเช็คลิสต์กระดาษแทน", status: !doneScreen, icon: "fa-mobile-screen" },
+        { hours: -1, title: "ปิดสมาร์ทโฟน/หน้าจอยุติแสงสีฟ้า (No Screens)", desc: "แสงสีฟ้า (Blue Light) ยับยั้งเมลาโทนิน แนะนำให้จดบันทึกลงบนเช็คลิสต์กระดาษอนาล็อกข้างเตียงแทนโทรศัพท์มือถือ เพื่อป้องกันแสงสีฟ้ายับยั้งเมลาโทนิน 100%", status: !doneScreen, icon: "fa-mobile-screen" },
         { hours: 0, title: "เวลานอนหลับเป้าหมาย (T-Sleep Bedtime)", desc: "เข้านอนทันทีในห้องนอนที่หรี่ไฟ มืดสนิท และเงียบสงบอุณหภูมิเย็นพอดี", status: true, icon: "fa-bed" },
         { hours: targetSleepHours, title: "เวลาตื่นนอนปลุกคงที่ (T-Wake Anchor)", desc: "ตื่นนอนทันทีเพื่อรักษานาฬิกาชีวิตธรรมชาติ ร่างกายจะตื่นมาพร้อมพลังงานเต็มเปี่ยม", status: true, icon: "fa-clock" }
     ];
